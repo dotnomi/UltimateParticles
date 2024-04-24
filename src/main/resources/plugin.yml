@@ -1,0 +1,7 @@
+name: Ultimate Particles
+version: '${version}'
+main: com.dotnomi.ultimateparticles.UltimateParticles
+api-version: '1.20'
+authors: [DotNomi]
+description: Dummy description
+website: https://dotnomi.de
