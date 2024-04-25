@@ -8,7 +8,6 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ProgressHandler {
@@ -21,6 +20,10 @@ public class ProgressHandler {
     private int taskId;
     private double currentProgress;
 
+    private String progressbar = "";
+    private String prefix = "";
+    private String imageCacheGenerationSuccess = "";
+
     private ProgressHandler() {
         logger = UltimateParticles.getInstance().getLogger();
         currentProgress = 0;
@@ -32,9 +35,9 @@ public class ProgressHandler {
     }
 
     public void enable() {
-        String progressbar = UltimateParticles.getPluginMessages().getString("progressbar") + " ";
-        String prefix = UltimateParticles.getPluginMessages().getString("prefix") + " ";
-        String imageCacheGenerationSuccess = UltimateParticles.getPluginMessages().getString("info.image-cache-generate-success") + " ";
+        progressbar += UltimateParticles.getPluginMessages().getString("progressbar");
+        prefix += UltimateParticles.getPluginMessages().getString("prefix");
+        imageCacheGenerationSuccess += UltimateParticles.getPluginMessages().getString("info.image-cache-generate-success");
 
         progressBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', progressbar.replace("%progress%", "0")), BarColor.BLUE, BarStyle.SOLID);
 
