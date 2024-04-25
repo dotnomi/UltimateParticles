@@ -89,6 +89,7 @@ public class ParticleStructureCacheManager {
             int maxProgress = imageData.getSize() * imageData.getSize();
             int count = 0;
 
+            List<String> colorList = new ArrayList<>();
             List<String> pixelList = new ArrayList<>();
 
             for (int x = 0; x < imageData.getSize(); x++) {
@@ -99,11 +100,16 @@ public class ParticleStructureCacheManager {
                     count++;
                     ProgressHandler.getInstance().updateProgress((double) count / maxProgress * 100);
                     PixelDto pixelData = ImageManager.getInstance().getPixelData(imageData.getImageFile(), x, y);
-                    if (pixelData != null && pixelData.getColor().getAlpha() == 255) pixelList.add(pixelData.toString());
+                    if (pixelData != null && pixelData.getColor().getAlpha() == 255) {
+                        String colorString = getColorString(pixelData.getColor());
+                        if (!colorList.contains(colorString)) colorList.add(colorString);
+                        pixelList.add(pixelData.toString(colorList.indexOf(colorString)));
+                    }
                 }
             }
 
             try {
+                cacheConfig.set("data.colors", colorList);
                 cacheConfig.set("data.pixels", pixelList);
                 cacheConfig.save(cacheFile);
             } catch (IOException e) {
@@ -124,24 +130,36 @@ public class ParticleStructureCacheManager {
 
         YamlConfiguration cacheConfig = YamlConfiguration.loadConfiguration(cacheFile);
 
-        List<PixelDto> pixelDataResult = new ArrayList<>();
-        List<String> pixelDataList = cacheConfig.getStringList("data.pixels");
-        logger.log(Level.INFO, "Loaded cache from " + imageName + " " + pixelDataList.size());
+        List<PixelDto> pixels = new ArrayList<>();
+        List<Color> colors = new ArrayList<>();
 
-        for (String pixelDataString : pixelDataList) {
-            Pattern pattern = Pattern.compile("(\\d+),(\\d+),(\\d+),(\\d+),(\\d+)");
-            List<MatchResult> matchResultList = pattern.matcher(pixelDataString).results().toList();
+        List<String> colorStrings = cacheConfig.getStringList("data.colors");
+        List<String> pixelStrings = cacheConfig.getStringList("data.pixels");
+        logger.log(Level.INFO, "Loaded cache from " + imageName + " " + pixelStrings.size());
+
+        for (String colorString : colorStrings) {
+            Pattern pattern = Pattern.compile("(\\d+),(\\d+),(\\d+)");
+            List<MatchResult> matchResultList = pattern.matcher(colorString).results().toList();
+
+            int red = Integer.parseInt(matchResultList.get(0).group(1));
+            int green = Integer.parseInt(matchResultList.get(0).group(2));
+            int blue = Integer.parseInt(matchResultList.get(0).group(3));
+
+            colors.add(Color.fromRGB(red, green, blue));
+        }
+
+        for (String pixelString : pixelStrings) {
+            Pattern pattern = Pattern.compile("(\\d+),(\\d+),(\\d+)");
+            List<MatchResult> matchResultList = pattern.matcher(pixelString).results().toList();
 
             int x = Integer.parseInt(matchResultList.get(0).group(1));
             int y = Integer.parseInt(matchResultList.get(0).group(2));
-            int red = Integer.parseInt(matchResultList.get(0).group(3));
-            int green = Integer.parseInt(matchResultList.get(0).group(4));
-            int blue = Integer.parseInt(matchResultList.get(0).group(5));
+            int colorIndex = Integer.parseInt(matchResultList.get(0).group(3));
 
-            pixelDataResult.add(new PixelDto(x, y, Color.fromRGB(red, green, blue)));
+            pixels.add(new PixelDto(x, y, colors.get(colorIndex)));
         }
 
-        return pixelDataResult;
+        return pixels;
     }
 
     public List<ParticleDto> convertPixelsToParticles(@Nonnull List<PixelDto> pixels, @Nonnull Location location, int imageSize) {
@@ -157,5 +175,9 @@ public class ParticleStructureCacheManager {
         }
 
         return particles;
+    }
+
+    private String getColorString(@Nonnull Color color) {
+        return color.getRed() + "," + color.getGreen() + "," + color.getBlue();
     }
 }
