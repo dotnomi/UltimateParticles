@@ -27,21 +27,6 @@ public class ParticleDto {
         this.speed = speed;
     }
 
-    public ParticleDto(@Nonnull Particle particleType, @Nonnull Location position,
-                       @Nonnull Location offset, @Nonnull Color color) {
-        this.type = particleType;
-        this.position = position;
-        this.offset = offset;
-        this.color = color;
-        this.count = 1;
-        this.size = 0.7f;
-        this.speed = 0;
-    }
-
-    public String getLocationString() {
-        return position.getX() + " " + position.getY() + " " + position.getZ();
-    }
-
     public void render() {
         if (position.getWorld() == null) return;
         position.getWorld().spawnParticle(type, position, count, offset.getX(), offset.getY(), offset.getZ(),

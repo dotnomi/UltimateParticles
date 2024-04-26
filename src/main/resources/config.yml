@@ -1,3 +1,7 @@
+#---------------------------#
+#     UltimateParticles     #
+#---------------------------#
+
 image-settings:
-  min-size: 8
-  max-size: 140 # 128 is recommended
+  min-size: 8 # Has to be greater than 0 and smaller than the maximum size
+  max-size: 128 # Errors may occur if the maximum size is greater than 128 because the maximum particle amount is approx. 20000 particles.

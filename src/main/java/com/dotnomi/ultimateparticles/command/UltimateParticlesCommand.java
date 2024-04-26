@@ -1,72 +1,60 @@
 package com.dotnomi.ultimateparticles.command;
 
-import com.dotnomi.ultimateparticles.UltimateParticles;
-import com.dotnomi.ultimateparticles.dto.ParticleDto;
-import com.dotnomi.ultimateparticles.dto.ParticleStructureDto;
-import com.dotnomi.ultimateparticles.dto.PixelDto;
 import com.dotnomi.ultimateparticles.files.ImageManager;
-import com.dotnomi.ultimateparticles.files.ParticleStructureCacheManager;
-import com.dotnomi.ultimateparticles.util.ParticleHandler;
-import com.dotnomi.ultimateparticles.util.ProgressHandler;
-import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UltimateParticlesCommand implements CommandExecutor, TabExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String prefix = UltimateParticles.getPluginMessages().getString("prefix");
-        String reload = UltimateParticles.getPluginMessages().getString("info.reload");
-        String imageCacheGenerationStarted = UltimateParticles.getPluginMessages().getString("info.image-cache-generate-started");
-        String imageCacheDeleted = UltimateParticles.getPluginMessages().getString("info.image-cache-delete-success");
-        String processAlreadyRunning = UltimateParticles.getPluginMessages().getString("error.process-is-already-running");
-
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (sender instanceof Player player) {
             if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("reload")) {
-                    ImageManager.getInstance().load();
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + reload));
+                    UltimateParticlesCommandHandler.getInstance().reload(player);
                 }
             } else if (args.length == 2) {
                 if (args[0].equalsIgnoreCase("cache")) {
-
-
                     if (args[1].equalsIgnoreCase("generate")) {
-                        if (ProgressHandler.getInstance().isRunning()) {
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + processAlreadyRunning));
-                            return true;
-                        }
-
-                        ImageManager.getInstance().load();
-                        ParticleStructureCacheManager.getInstance().generateParticleStructureCache(false);
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + imageCacheGenerationStarted));
+                        UltimateParticlesCommandHandler.getInstance().generateCache(player, false);
                     } else if (args[1].equalsIgnoreCase("remove")) {
-                        ParticleStructureCacheManager.getInstance().removeParticleStructureCache();
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + imageCacheDeleted));
+                        UltimateParticlesCommandHandler.getInstance().removeCache(player);
                     }
                 } else if (args[0].equalsIgnoreCase("render")) {
-                    List<PixelDto> pixels = ParticleStructureCacheManager.getInstance().loadParticleStructureCache(args[1]);
-                    int imageSize = ImageManager.getInstance().getImageDataByName(args[1]).getSize();
-                    List<ParticleDto> particles = ParticleStructureCacheManager.getInstance().convertPixelsToParticles(pixels, player.getLocation(), imageSize);
-                    ParticleStructureDto particleStructure = new ParticleStructureDto(particles, 40);
-                    ParticleHandler.getInstance().addParticleStructure(particleStructure);
+                    UltimateParticlesCommandHandler.getInstance().render(player, args[1]);
                 }
             } else if (args.length == 3) {
                 if (args[0].equalsIgnoreCase("cache")) {
                     if (args[1].equalsIgnoreCase("generate") && args[2].equalsIgnoreCase("force-generation")) {
-                        if (ProgressHandler.getInstance().isRunning()) {
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + processAlreadyRunning));
-                            return true;
-                        }
-                        ParticleStructureCacheManager.getInstance().generateParticleStructureCache(true);
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + imageCacheGenerationStarted));
+                        UltimateParticlesCommandHandler.getInstance().generateCache(player, true);
                     }
+                }
+            } else if (args.length == 5) {
+                if (args[0].equalsIgnoreCase("render")) {
+                    Location position = new Location(player.getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
+
+                    UltimateParticlesCommandHandler.getInstance().render(player, args[1], position);
+                }
+            } else if (args.length == 8) {
+                if (args[0].equalsIgnoreCase("render")) {
+                    Location position = new Location(player.getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
+                    Location rotation = new Location(player.getWorld(), Double.parseDouble(args[5]), Double.parseDouble(args[6]), Double.parseDouble(args[7]));
+
+                    UltimateParticlesCommandHandler.getInstance().render(player, args[1], position, rotation);
+                }
+            } else if (args.length == 9) {
+                if (args[0].equalsIgnoreCase("render")) {
+                    Location position = new Location(player.getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
+                    Location rotation = new Location(player.getWorld(), Double.parseDouble(args[5]), Double.parseDouble(args[6]), Double.parseDouble(args[7]));
+
+                    UltimateParticlesCommandHandler.getInstance().render(player, args[1], position, rotation, Integer.parseInt(args[8]));
                 }
             }
         }
@@ -75,14 +63,29 @@ public class UltimateParticlesCommand implements CommandExecutor, TabExecutor {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 1) {
-            return List.of("cache", "render", "reload");
-        } else if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("render")) return ImageManager.getInstance().getImageNames();
-            return List.of("generate", "remove");
-        } else if (args.length == 3) {
-            if (args[1].equalsIgnoreCase("generate")) return List.of("force-generation");
+    public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
+        if (sender instanceof Player player) {
+            if (args.length == 1) {
+                return List.of("cache", "render", "reload");
+            } else if (args.length == 2) {
+                if (args[0].equalsIgnoreCase("render")) return ImageManager.getInstance().getImageNames();
+                return List.of("generate", "remove");
+            } else if (args.length == 3) {
+                if (args[0].equalsIgnoreCase("render")) return List.of("" + (int) player.getLocation().getX());
+                if (args[1].equalsIgnoreCase("generate")) return List.of("force-generation");
+            } else if (args.length == 4) {
+                if (args[0].equalsIgnoreCase("render")) return List.of("" + (int) player.getLocation().getY());
+            } else if (args.length == 5) {
+                if (args[0].equalsIgnoreCase("render")) return List.of("" + (int) player.getLocation().getZ());
+            } else if (args.length == 6) {
+                if (args[0].equalsIgnoreCase("render")) return List.of("0", "90", "180", "270");
+            } else if (args.length == 7) {
+                if (args[0].equalsIgnoreCase("render")) return List.of("0", "90", "180", "270");
+            } else if (args.length == 8) {
+                if (args[0].equalsIgnoreCase("render")) return List.of("0", "90", "180", "270");
+            } else if (args.length == 9) {
+                if (args[0].equalsIgnoreCase("render")) return List.of("1");
+            }
         }
 
         return new ArrayList<>();
