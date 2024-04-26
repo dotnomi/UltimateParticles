@@ -2,9 +2,9 @@ name: UltimateParticles
 version: '${version}'
 main: com.dotnomi.ultimateparticles.UltimateParticles
 api-version: '1.20'
-authors: [DotNomi]
+authors: [DotNomi,Adrijan]
 description: Dummy description
-website: https://dotnomi.de
+#website: https://dotnomi.de
 commands:
   ultimateparticles:
     description: "Ultimate Particles command"

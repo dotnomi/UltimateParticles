@@ -162,16 +162,36 @@ public class ParticleStructureCacheManager {
         return pixels;
     }
 
-    public List<ParticleDto> convertPixelsToParticles(@Nonnull List<PixelDto> pixels, @Nonnull Location location, int imageSize) {
+    public List<ParticleDto> convertPixelsToParticles(@Nonnull List<PixelDto> pixels, @Nonnull Location location, @Nonnull Location rotation, int imageSize) {
         List<ParticleDto> particles = new ArrayList<>();
+        double xRadians = Math.toRadians(rotation.getX());
+        double yRadians = Math.toRadians(rotation.getY());
+        double zRadians = Math.toRadians(rotation.getZ());
+
+        double centerX = Math.ceil((double) imageSize / 2);
+        double centerZ = centerX;
 
         for (PixelDto pixel : pixels) {
-            double relativeX = (pixel.getX() - Math.ceil((double) imageSize / 2)) * 0.125;
-            double relativeZ = (pixel.getY() - Math.ceil((double) imageSize / 2)) * 0.125;
-            Location particleLocation = location.clone().add(relativeX, 0, relativeZ);
-            Location offset = new Location(location.getWorld(), 0,0,0);
+            double originalX = (pixel.getX() - centerX) * 0.125;
+            double originalY = 0;
+            double originalZ = (pixel.getY() - centerZ) * 0.125;
+
+            // Y-Rotation
+            double tempX = originalX * Math.cos(yRadians) - originalZ * Math.sin(yRadians);
+            double tempZ = originalX * Math.sin(yRadians) + originalZ * Math.cos(yRadians);
+
+            // X-Rotation
+            double tempY = originalY * Math.cos(xRadians) - tempZ * Math.sin(xRadians);
+            tempZ = originalY * Math.sin(xRadians) + tempZ * Math.cos(xRadians);
+
+            // Z-Rotation
+            double rotatedX = tempX * Math.cos(zRadians) - tempY * Math.sin(zRadians);
+            double rotatedY = tempX * Math.sin(zRadians) + tempY * Math.cos(zRadians);
+
+            Location particleLocation = location.clone().add(rotatedX, rotatedY, tempZ);
+            Location offset = new Location(location.getWorld(), 0, 0, 0);
             particles.add(new ParticleDto(Particle.REDSTONE, particleLocation, offset, pixel.getColor(),
-                    1, 0.6f, 0));
+                    1, 0.65f, 0));
         }
 
         return particles;
