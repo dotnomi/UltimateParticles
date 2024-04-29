@@ -12,7 +12,8 @@
 global-settings:
   # Name of the language file you want to use. (Without the .yml)
   language: "english"
-  command-alias: "up"
+  # When enabled there are more info messages in the console.
+  debug-mode: false
 
 # Image settings
 image-settings:
