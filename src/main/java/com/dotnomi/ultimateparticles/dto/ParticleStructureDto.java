@@ -1,7 +1,5 @@
 package com.dotnomi.ultimateparticles.dto;
 
-import org.bukkit.Location;
-
 import java.util.List;
 
 public class ParticleStructureDto {

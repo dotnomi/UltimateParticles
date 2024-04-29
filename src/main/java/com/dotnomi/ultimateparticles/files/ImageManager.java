@@ -1,8 +1,10 @@
 package com.dotnomi.ultimateparticles.files;
 
 import com.dotnomi.ultimateparticles.UltimateParticles;
+import com.dotnomi.ultimateparticles.constants.Constants;
 import com.dotnomi.ultimateparticles.dto.ImageDto;
 import com.dotnomi.ultimateparticles.dto.PixelDto;
+import com.dotnomi.ultimateparticles.util.MessageUtility;
 import org.bukkit.Color;
 
 import javax.imageio.ImageIO;
@@ -17,9 +19,9 @@ import java.util.logging.Logger;
 public class ImageManager {
 
     private static final ImageManager instance = new ImageManager();
-    private static Logger logger;
-    private static File imageFolder;
-    private static List<ImageDto> images;
+    private final Logger logger;
+    private final File imageFolder;
+    private final List<ImageDto> images;
 
     private ImageManager() {
         logger = UltimateParticles.getInstance().getLogger();
@@ -38,7 +40,6 @@ public class ImageManager {
         for (File image : Objects.requireNonNull(imageFolder.listFiles())) {
             if (image.getName().toLowerCase().endsWith(".png")) {
                 if (isImageValid(image)) {
-                    logger.log(Level.INFO, "Loading image " + image.getName());
                     images.add(new ImageDto(image, getImageSize(image)));
                 }
             }
@@ -97,17 +98,15 @@ public class ImageManager {
 
     public boolean isImageValid(File image) {
         if (getImageSize(image) == null || getPixelData(image, 0, 0) == null) {
-            logger.log(Level.WARNING, "Invalid image " + image.getName());
+            logger.warning(Constants.LOG_INVALID_IMAGE.replace("%imagename%", image.getName()));
             return false;
-        };
+        }
         return true;
     }
 
     private void createImageFolderIfNotExists() {
-        if (!imageFolder.exists()) {
-            if (imageFolder.mkdirs()) {
-                logger.log(Level.INFO, "Created image folder.");
-            }
+        if (!imageFolder.exists() && imageFolder.mkdirs()) {
+            logger.log(Level.INFO, "Created image folder.");
         }
     }
 }

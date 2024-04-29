@@ -18,43 +18,43 @@ public class UltimateParticlesCommand implements CommandExecutor, TabExecutor {
         if (sender instanceof Player player) {
             if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("reload")) {
-                    UltimateParticlesCommandHandler.getInstance().reload(player);
+                    UltimateParticlesCommandHandler.reload(player);
                 }
             } else if (args.length == 2) {
                 if (args[0].equalsIgnoreCase("cache")) {
                     if (args[1].equalsIgnoreCase("generate")) {
-                        UltimateParticlesCommandHandler.getInstance().generateCache(player, false);
+                        UltimateParticlesCommandHandler.generateCache(player, false);
                     } else if (args[1].equalsIgnoreCase("remove")) {
-                        UltimateParticlesCommandHandler.getInstance().removeCache(player);
+                        UltimateParticlesCommandHandler.removeCache(player);
                     }
                 } else if (args[0].equalsIgnoreCase("render")) {
-                    UltimateParticlesCommandHandler.getInstance().render(player, args[1]);
+                    UltimateParticlesCommandHandler.render(player, args[1]);
                 }
             } else if (args.length == 3) {
                 if (args[0].equalsIgnoreCase("cache")) {
                     if (args[1].equalsIgnoreCase("generate") && args[2].equalsIgnoreCase("force-generation")) {
-                        UltimateParticlesCommandHandler.getInstance().generateCache(player, true);
+                        UltimateParticlesCommandHandler.generateCache(player, true);
                     }
                 }
             } else if (args.length == 5) {
                 if (args[0].equalsIgnoreCase("render")) {
                     Location position = new Location(player.getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
 
-                    UltimateParticlesCommandHandler.getInstance().render(player, args[1], position);
+                    UltimateParticlesCommandHandler.render(player, args[1], position);
                 }
             } else if (args.length == 8) {
                 if (args[0].equalsIgnoreCase("render")) {
                     Location position = new Location(player.getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
                     Location rotation = new Location(player.getWorld(), Double.parseDouble(args[5]), Double.parseDouble(args[6]), Double.parseDouble(args[7]));
 
-                    UltimateParticlesCommandHandler.getInstance().render(player, args[1], position, rotation);
+                    UltimateParticlesCommandHandler.render(player, args[1], position, rotation);
                 }
             } else if (args.length == 9) {
                 if (args[0].equalsIgnoreCase("render")) {
                     Location position = new Location(player.getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
                     Location rotation = new Location(player.getWorld(), Double.parseDouble(args[5]), Double.parseDouble(args[6]), Double.parseDouble(args[7]));
 
-                    UltimateParticlesCommandHandler.getInstance().render(player, args[1], position, rotation, Integer.parseInt(args[8]));
+                    UltimateParticlesCommandHandler.render(player, args[1], position, rotation, Integer.parseInt(args[8]));
                 }
             }
         }

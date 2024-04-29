@@ -15,7 +15,7 @@ public class ParticleHandler {
     private final Logger logger;
     private List<ParticleStructureDto> particleStructures;
 
-    private static int taskId;
+    private int taskId;
 
     private ParticleHandler() {
         logger = UltimateParticles.getPluginLogger();

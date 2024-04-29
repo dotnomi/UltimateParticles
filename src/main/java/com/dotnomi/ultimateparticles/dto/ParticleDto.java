@@ -8,13 +8,13 @@ import javax.annotation.Nonnull;
 
 public class ParticleDto {
 
-    private Particle type;
-    private Location position;
-    private Location offset;
-    private Color color;
-    private int count;
-    private float size;
-    private int speed;
+    private final Particle type;
+    private final Location position;
+    private final Location offset;
+    private final Color color;
+    private final int count;
+    private final float size;
+    private final int speed;
 
     public ParticleDto(@Nonnull Particle particleType, @Nonnull Location position,
                        @Nonnull Location offset, @Nonnull Color color, int count, float size, int speed) {
