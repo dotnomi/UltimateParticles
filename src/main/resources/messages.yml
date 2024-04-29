@@ -1,9 +1,0 @@
-prefix: "&8[&3UltimateParticles&8] &7"
-info:
-  reload: "Reloaded all files."
-  image-cache-generate-started: "Started image cache generation."
-  image-cache-generate-success: "&aSuccessfully generated image caches."
-  image-cache-delete-success: "&aSuccessfully deleted image caches."
-error:
-  process-is-already-running: "&cThe cache generation process is already running!"
-progressbar: "&3Image cache generation: %progress%%"
