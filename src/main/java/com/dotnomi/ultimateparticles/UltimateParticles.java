@@ -1,6 +1,7 @@
 package com.dotnomi.ultimateparticles;
 
 import com.dotnomi.ultimateparticles.command.UltimateParticlesCommand;
+import com.dotnomi.ultimateparticles.constants.Config;
 import com.dotnomi.ultimateparticles.files.ConfigManager;
 import com.dotnomi.ultimateparticles.files.ImageManager;
 import com.dotnomi.ultimateparticles.files.MessageManager;
@@ -9,6 +10,7 @@ import com.dotnomi.ultimateparticles.util.ProgressBarHandler;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public final class UltimateParticles extends JavaPlugin {
@@ -42,8 +44,10 @@ public final class UltimateParticles extends JavaPlugin {
     }
 
     private void initializeCommands() {
-        PluginCommand ultimateparticlesCommand = getCommand("ultimateparticles");
-        if (ultimateparticlesCommand != null) ultimateparticlesCommand.setExecutor(new UltimateParticlesCommand());
+        PluginCommand mainCommand = getCommand("ultimateparticles");
+        if (mainCommand != null) {
+            mainCommand.setExecutor(new UltimateParticlesCommand());
+        }
     }
 
     public static UltimateParticles getInstance() {

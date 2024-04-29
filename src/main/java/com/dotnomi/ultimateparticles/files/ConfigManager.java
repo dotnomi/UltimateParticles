@@ -5,6 +5,7 @@ import com.dotnomi.ultimateparticles.constants.Config;
 import com.dotnomi.ultimateparticles.constants.Constants;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,11 +26,12 @@ public class ConfigManager {
 
             // TEMPORARY SETTINGS
             int[] tempImageSize = sendImageSizeWarnings(
-                    config.getInt("image-settings.min-size"),
-                    config.getInt("image-settings.max-size"));
+                    config.getInt("image-settings.min-size", 0),
+                    config.getInt("image-settings.max-size", 0));
 
             // GLOBAL SETTINGS
-            Config.LANGUAGE_FILE_NAME = config.getString("global-settings.language");
+            Config.LANGUAGE_FILE_NAME = config.getString("global-settings.language", "english");
+            Config.DEBUG_MODE = config.getBoolean("global-settings.debug-mode", false);
 
             // IMAGE SETTINGS
             Config.MIN_IMAGE_SIZE = tempImageSize[0];
@@ -45,15 +47,15 @@ public class ConfigManager {
         if (minSize < 0) {
             minSize = 0;
             logger.warning(Constants.LOG_NEGATIVE_IMAGE_SIZE
-                    .replace("variable", "min-size")
-                    .replace("size", "0"));
+                    .replace("%variable%", "min-size")
+                    .replace("%size%", "0"));
         }
 
         if (minSize > maxSize) {
             maxSize = minSize;
             logger.warning(Constants.LOG_MAX_SMALLER_THAN_MIN
-                    .replace("variable", "max-size")
-                    .replace("size", "" + maxSize));
+                    .replace("%variable%", "max-size")
+                    .replace("%size%", "" + maxSize));
         }
 
         return new int[]{minSize, maxSize};
