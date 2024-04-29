@@ -1,0 +1,10 @@
+general:
+  prefix: "&8[&3UltimateParticles&8] &7"
+  progress-bar: "&3Bild-Cache Generierung: %progress%%"
+info:
+  reload: "Alle Dateien neu geladen."
+  image-cache-generate-started: "Generierung der Bild-Caches gestartet."
+  image-cache-generate-finished: "&aBild-Caches erfolgreich generiert."
+  image-cache-delete: "&aBild-Caches erfolgreich gelöscht."
+error:
+  process-is-already-running: "&cDie Cache-Generierung läuft bereits!"

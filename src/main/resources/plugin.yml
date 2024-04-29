@@ -3,8 +3,7 @@ version: '${version}'
 main: com.dotnomi.ultimateparticles.UltimateParticles
 api-version: '1.20'
 authors: [DotNomi,Adrijan]
-description: Dummy description
+description: With this plugin you can create images out of particles!
 #website: https://dotnomi.de
 commands:
   ultimateparticles:
-    description: "Ultimate Particles command"

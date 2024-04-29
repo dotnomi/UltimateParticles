@@ -3,9 +3,8 @@ package com.dotnomi.ultimateparticles.files;
 import com.dotnomi.ultimateparticles.UltimateParticles;
 import com.dotnomi.ultimateparticles.dto.ImageDto;
 import com.dotnomi.ultimateparticles.dto.ParticleDto;
-import com.dotnomi.ultimateparticles.dto.ParticleStructureDto;
 import com.dotnomi.ultimateparticles.dto.PixelDto;
-import com.dotnomi.ultimateparticles.util.ProgressHandler;
+import com.dotnomi.ultimateparticles.util.ProgressBarHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -65,7 +64,7 @@ public class ParticleStructureCacheManager {
             cacheFile.delete();
         });
 
-        ProgressHandler.getInstance().updateProgress(0);
+        ProgressBarHandler.getInstance().updateProgress(0);
         closeTask = false;
     }
 
@@ -98,7 +97,7 @@ public class ParticleStructureCacheManager {
                         return;
                     }
                     count++;
-                    ProgressHandler.getInstance().updateProgress((double) count / maxProgress * 100);
+                    ProgressBarHandler.getInstance().updateProgress((double) count / maxProgress * 100);
                     PixelDto pixelData = ImageManager.getInstance().getPixelData(imageData.getImageFile(), x, y);
                     if (pixelData != null && pixelData.getColor().getAlpha() == 255) {
                         String colorString = getColorString(pixelData.getColor());

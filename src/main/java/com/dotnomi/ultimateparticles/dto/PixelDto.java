@@ -1,18 +1,15 @@
 package com.dotnomi.ultimateparticles.dto;
 
-import com.dotnomi.ultimateparticles.UltimateParticles;
+import com.dotnomi.ultimateparticles.constants.Config;
 import org.bukkit.Color;
 
 public class PixelDto {
     private int x, y;
     private Color color;
-    private final int maxImageSize;
 
     public PixelDto(int x,int y, Color color) {
-        maxImageSize = UltimateParticles.getPluginConfig().getInt("image-settings.max-size");
-
-        this.x = Math.min(Math.max(0, x), maxImageSize);
-        this.y = Math.min(Math.max(0, y), maxImageSize);
+        this.x = Math.min(Math.max(0, x), Config.MAX_IMAGE_SIZE);
+        this.y = Math.min(Math.max(0, y), Config.MAX_IMAGE_SIZE);
         this.color = color;
     }
 
@@ -21,7 +18,7 @@ public class PixelDto {
     }
 
     public void setX(int x) {
-        this.x = Math.min(Math.max(0, x), maxImageSize);
+        this.x = Math.min(Math.max(0, x), Config.MAX_IMAGE_SIZE);
     }
 
     public int getY() {
@@ -29,7 +26,7 @@ public class PixelDto {
     }
 
     public void setY(int y) {
-        this.y = Math.min(Math.max(0, y), maxImageSize);
+        this.y = Math.min(Math.max(0, y), Config.MAX_IMAGE_SIZE);
     }
 
     public Color getColor() {
