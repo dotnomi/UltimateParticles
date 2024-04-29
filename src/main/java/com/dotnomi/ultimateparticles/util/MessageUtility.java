@@ -5,7 +5,9 @@ import org.bukkit.ChatColor;
 
 import javax.annotation.Nonnull;
 
-public final class PlayerUtility {
+public final class MessageUtility {
+    private MessageUtility() {}
+
     public static String getColoredMessage(@Nonnull String message, boolean withPrefix) {
         if (withPrefix) {
             return getColoredMessage(Messages.GENERAL_PREFIX + message);

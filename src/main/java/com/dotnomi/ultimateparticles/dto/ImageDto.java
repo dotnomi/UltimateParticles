@@ -1,6 +1,6 @@
 package com.dotnomi.ultimateparticles.dto;
 
-import com.dotnomi.ultimateparticles.UltimateParticles;
+import com.dotnomi.ultimateparticles.constants.Config;
 
 import java.io.File;
 
@@ -9,14 +9,9 @@ public class ImageDto {
     private File image;
     private int size;
 
-    private final int minImageSize, maxImageSize;
-
     public ImageDto(File image, int size) {
-        minImageSize = UltimateParticles.getPluginConfig().getInt("image-settings.min-size");
-        maxImageSize = UltimateParticles.getPluginConfig().getInt("image-settings.max-size");
-
         this.image = image;
-        this.size = Math.min(Math.max(minImageSize, size), maxImageSize);
+        this.size = Math.min(Math.max(Config.MIN_IMAGE_SIZE, size), Config.MAX_IMAGE_SIZE);
     }
 
     public File getImageFile() {
@@ -32,6 +27,6 @@ public class ImageDto {
     }
 
     public void setSize(int size) {
-        this.size = Math.min(Math.max(minImageSize, size), maxImageSize);
+        this.size = Math.min(Math.max(Config.MIN_IMAGE_SIZE, size), Config.MAX_IMAGE_SIZE);
     }
 }

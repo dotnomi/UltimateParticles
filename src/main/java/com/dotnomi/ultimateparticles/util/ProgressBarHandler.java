@@ -55,7 +55,7 @@ public class ProgressBarHandler {
     }
 
     private String getCurrentProgressBarTitle() {
-        return PlayerUtility.getColoredMessage(
+        return MessageUtility.getColoredMessage(
                 Messages.GENERAL_PROGRESS_BAR.replace("%progress%",
                         (int) currentProgress + ""));
     }
@@ -63,7 +63,7 @@ public class ProgressBarHandler {
     private void endProgressBar() {
         if (isRunning) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                player.sendMessage(PlayerUtility.getColoredMessage(Messages.INFO_CACHE_GEN_FINISHED, true));
+                player.sendMessage(MessageUtility.getColoredMessage(Messages.INFO_CACHE_GEN_FINISHED, true));
             }
         }
 
