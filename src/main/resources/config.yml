@@ -1,7 +1,24 @@
-#---------------------------#
+#############################
 #     UltimateParticles     #
-#---------------------------#
+#+-------------------------+#
+# Authors:                  #
+#   - DotNomi               #
+#   - Adrijan               #
+#+-------------------------+#
+# Config-Version: v1        #
+#############################
 
+# Global plugin settings
+global-settings:
+  # Name of the language file you want to use. (Without the .yml)
+  language: "english"
+
+# Image settings
 image-settings:
-  min-size: 8 # Has to be greater than 0 and smaller than the maximum size
-  max-size: 128 # Errors may occur if the maximum size is greater than 128 because the maximum particle amount is approx. 20000 particles.
+  # Minimum amount of pixels in the X and Y axis. (Must be greater than 0 and smaller than max-size!)
+  min-size: 8
+  # Maximum amount of pixels in the X and Y axis. (Must be greater than min-size)
+  # Important Note: Minecraft can only render approx. 20000 particles at once.
+  #                 That means if you have an image with 145x145 (21025) pixels
+  #                 it could be that not the whole image is rendered.
+  max-size: 128
