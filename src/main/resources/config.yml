@@ -24,3 +24,12 @@ image-settings:
   #                 That means if you have an image with 145x145 (21025) pixels
   #                 it could be that not the whole image is rendered.
   max-size: 128
+
+# Permissions
+permissions:
+  global:
+    reload: "ultimateparticles.reload"
+  image:
+    caching: "ultimateparticles.cache"
+    rendering: "ultimateparticles.render"
+
