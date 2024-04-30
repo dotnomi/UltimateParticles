@@ -28,8 +28,11 @@ image-settings:
 # Permissions
 permissions:
   global:
+    # Permissions for reloading
     reload: "ultimateparticles.reload"
   image:
-    caching: "ultimateparticles.cache"
-    rendering: "ultimateparticles.render"
+    # Permission to generate and delete image caches
+    cache: "ultimateparticles.cache"
+    # Permission to render images
+    render: "ultimateparticles.render"
 
