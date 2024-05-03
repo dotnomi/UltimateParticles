@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ParticleHandler {
-    private static final ParticleHandler instance = new ParticleHandler();
+    private static ParticleHandler instance;
     private final Logger logger;
     private List<ParticleStructureDto> particleStructures;
 
@@ -23,6 +23,7 @@ public class ParticleHandler {
     }
 
     public static ParticleHandler getInstance() {
+        if (instance == null) instance = new ParticleHandler();
         return instance;
     }
 
@@ -53,13 +54,17 @@ public class ParticleHandler {
 
             removeFinishedParticleStructures();
         }, 0,1).getTaskId();
-        logger.log(Level.INFO, "Particle handler enabled.");
+        logger.info("Particle handler enabled.");
     }
 
     public void disable() {
-        if (Bukkit.getScheduler().isCurrentlyRunning(taskId)) {
-            Bukkit.getScheduler().cancelTask(taskId);
-            logger.log(Level.INFO, "Particle handler disabled.");
+        try {
+            if (Bukkit.getScheduler().isCurrentlyRunning(taskId)) {
+                Bukkit.getScheduler().cancelTask(taskId);
+                logger.info("Particle handler disabled.");
+            }
+        } catch (Exception ignore) {
+            logger.warning("Error while disabling particle handler.");
         }
     }
 }

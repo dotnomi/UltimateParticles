@@ -12,8 +12,10 @@
 global-settings:
   # Name of the language file you want to use. (Without the .yml)
   language: "english"
-  # When enabled there are more info messages in the console.
+  # When enabled there are more info messages in the console. (No functionality at the moment.)
   debug-mode: false
+  # Every time something is changed in the config, this counter is counted up by us.
+  config-version: 1
 
 # Image settings
 image-settings:
