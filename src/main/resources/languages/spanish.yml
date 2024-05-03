@@ -6,10 +6,12 @@ info:
   image-cache-generate-started: "Se ha iniciado la generación de caché de imágenes."
   image-cache-generate-finished: "&aSe han generado satisfactoriamente las cachés de imágenes."
   image-cache-delete: "&aSe han eliminado satisfactoriamente las cachés de imágenes."
+  image-render-finished: "&aSuccessfully rendered image %imagename%."
 error:
   process-is-already-running: "&c¡La generación de caché ya está en curso!"
   no-permission: "&cYou aren't allowed to perform this command!"
   not-a-player: "&cPlease use this command as a player!"
+  image-not-found: "&cImage %imagename% not found!"
   wrong-reload-cmd-usage: "&cWrong usage! Please use: &7 /up reload"
   wrong-cache-cmd-usage: "&cWrong usage! Please use: &7 /up cache &8<&7generate&8/&7remove&8> <&7true&8/&7false&8>"
   wrong-render-cmd-usage: "&cWrong usage! Please use: &7 /up render &8<&7imagename&8> <&7duration&8> <&7x-pos&8> <&7y-pos&8> <&7z-pos&8> <&7x-rot&8> <&7y-rot&8> <&7z-rot&8>"
