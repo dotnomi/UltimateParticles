@@ -7,4 +7,5 @@ public class Constants {
     public static final String LOG_CANT_LOAD_FILE = "Failed to load %filename%.yml";
     public static final String LOG_CANT_INSTANTIATE_FILE = "Failed to instantiate language file %filename%.yml";
     public static final String LOG_INVALID_IMAGE = "Image %imagename% isn't valid!";
+    public static final String ERROR_INVALID_MESSAGE_FILE = "&cIf you see this, your language file is not working properly! (Try to delete it and reload the plugin.)";
 }

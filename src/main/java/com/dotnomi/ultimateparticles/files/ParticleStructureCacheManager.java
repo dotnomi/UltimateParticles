@@ -55,7 +55,7 @@ public class ParticleStructureCacheManager {
             File imageFolder = new File(UltimateParticles.getInstance().getDataFolder(), "images");
 
             if (imageData == null) {
-                logger.log(Level.WARNING, "Could not find image " + imageName);
+                logger.warning("Could not find image " + imageName);
                 return;
             }
 
@@ -74,7 +74,7 @@ public class ParticleStructureCacheManager {
             File imageFolder = new File(UltimateParticles.getInstance().getDataFolder(), "images");
 
             if (imageData == null) {
-                logger.log(Level.WARNING, "Could not find image " + imageName);
+                logger.warning("Could not find image " + imageName);
                 return;
             }
 
@@ -112,7 +112,7 @@ public class ParticleStructureCacheManager {
                 cacheConfig.set("data.pixels", pixelList);
                 cacheConfig.save(cacheFile);
             } catch (IOException e) {
-                logger.log(Level.WARNING, "Unable to save cache file from " + imageName);
+                logger.warning("Unable to save cache file from " + imageName);
             }
         }).getTaskId();
     }
@@ -123,7 +123,7 @@ public class ParticleStructureCacheManager {
         File cacheFile = new File(imageFolder, imageName + "_cache.yml");
 
         if (imageData == null || !cacheFile.exists())  {
-            logger.log(Level.WARNING, "Failed to load cache from " + imageName);
+            logger.warning("Failed to load cache from " + imageName);
             return null;
         }
 
@@ -134,7 +134,7 @@ public class ParticleStructureCacheManager {
 
         List<String> colorStrings = cacheConfig.getStringList("data.colors");
         List<String> pixelStrings = cacheConfig.getStringList("data.pixels");
-        logger.log(Level.INFO, "Loaded cache from " + imageName + " " + pixelStrings.size());
+        logger.info("Loaded cache from " + imageName + " " + pixelStrings.size());
 
         for (String colorString : colorStrings) {
             Pattern pattern = Pattern.compile("(\\d+),(\\d+),(\\d+)");
