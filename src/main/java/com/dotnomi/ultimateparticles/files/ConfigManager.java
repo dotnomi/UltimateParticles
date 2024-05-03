@@ -36,6 +36,11 @@ public class ConfigManager {
             // IMAGE SETTINGS
             Config.MIN_IMAGE_SIZE = tempImageSize[0];
             Config.MAX_IMAGE_SIZE = tempImageSize[1];
+
+            // PERMISSIONS
+            Config.PERMISSION_RELOAD = config.getString("permissions.global.reload", "ultimateparticles.reload");
+            Config.PERMISSION_CACHE = config.getString("permissions.image.cache", "ultimateparticles.cache");
+            Config.PERMISSION_RENDER = config.getString("permissions.image.render", "ultimateparticles.render");
         } catch (Exception exception) {
             logger.log(Level.WARNING, Constants.LOG_CANT_LOAD_FILE.replace("%filename%", "config"));
         }

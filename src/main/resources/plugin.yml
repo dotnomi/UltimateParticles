@@ -7,3 +7,5 @@ description: With this plugin you can create images out of particles!
 #website: https://dotnomi.de
 commands:
   ultimateparticles:
+    description: Main command of UltimateParticles
+    aliases: [up]
