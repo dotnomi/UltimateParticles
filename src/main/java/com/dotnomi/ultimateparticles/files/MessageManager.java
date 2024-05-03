@@ -49,11 +49,13 @@ public class MessageManager {
             Messages.INFO_CACHE_GEN_STARTED = messageConfig.getString("info.image-cache-generate-started", Constants.ERROR_INVALID_MESSAGE_FILE);
             Messages.INFO_CACHE_GEN_FINISHED = messageConfig.getString("info.image-cache-generate-finished", Constants.ERROR_INVALID_MESSAGE_FILE);
             Messages.INFO_CACHE_DELETED = messageConfig.getString("info.image-cache-delete", Constants.ERROR_INVALID_MESSAGE_FILE);
+            Messages.INFO_RENDER_IMG_FINISHED = messageConfig.getString("info.image-render-finished", Constants.ERROR_INVALID_MESSAGE_FILE);
 
             // ERROR MESSAGES
             Messages.ERROR_CACHE_GEN_ALREADY_RUNNING = messageConfig.getString("error.process-is-already-running", Constants.ERROR_INVALID_MESSAGE_FILE);
             Messages.ERROR_NO_PERMISSION = messageConfig.getString("error.no-permission", Constants.ERROR_INVALID_MESSAGE_FILE);
             Messages.ERROR_NOT_A_PLAYER = messageConfig.getString("error.not-a-player", Constants.ERROR_INVALID_MESSAGE_FILE);
+            Messages.ERROR_IMAGE_NOT_FOUND = messageConfig.getString("error.image-not-found", Constants.ERROR_INVALID_MESSAGE_FILE);
             Messages.ERROR_WRONG_RELOAD_CMD_USEAGE = messageConfig.getString("error.wrong-reload-cmd-usage", Constants.ERROR_INVALID_MESSAGE_FILE);
             Messages.ERROR_WRONG_CACHE_CMD_USEAGE = messageConfig.getString("error.wrong-cache-cmd-usage", Constants.ERROR_INVALID_MESSAGE_FILE);
             Messages.ERROR_WRONG_RENDER_CMD_USEAGE = messageConfig.getString("error.wrong-render-cmd-usage", Constants.ERROR_INVALID_MESSAGE_FILE);

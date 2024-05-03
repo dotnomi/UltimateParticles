@@ -30,22 +30,6 @@ public final class CommandArgsUtility {
         }
     }
 
-    public static Location getArgumentLocation(@Nonnull String argX, @Nonnull String argY, @Nonnull String argZ, Location def) {
-        try {
-            Double x = getArgumentDouble(argX, null);
-            Double y = getArgumentDouble(argY, null);
-            Double z = getArgumentDouble(argZ, null);
-
-            if (x != null && y != null && z != null) {
-                return new Location(Bukkit.getWorld("world"), x, y, z);
-            } else {
-                return def;
-            }
-        } catch (Exception ignore) {
-            return def;
-        }
-    }
-
     public static Location getArgumentLocation(@Nonnull Player player, @Nonnull String argX, @Nonnull String argY, @Nonnull String argZ, Location def) {
         Location playerLocation = player.getLocation();
         double x = playerLocation.getX();

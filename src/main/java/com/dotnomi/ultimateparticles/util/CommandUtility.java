@@ -58,26 +58,26 @@ public final class CommandUtility {
     public static void render(@Nonnull Player player, @Nonnull String imageName, int duration, @Nonnull Location position, @Nonnull Location rotation) {
         List<PixelDto> pixels = ParticleStructureCacheManager.getInstance().loadParticleStructureCache(imageName);
         if (pixels == null || pixels.isEmpty()) {
-            player.sendMessage(MessageUtility.getColoredMessage("&cWrong image name.", true));
+            player.sendMessage(MessageUtility.getColoredMessage(Messages.ERROR_IMAGE_NOT_FOUND.replace("%imagename%", imageName), true));
             return;
         }
         int imageSize = ImageManager.getInstance().getImageDataByName(imageName).getSize();
         List<ParticleDto> particles = ParticleStructureCacheManager.getInstance().convertPixelsToParticles(pixels, position, rotation, imageSize);
         ParticleStructureDto particleStructure = new ParticleStructureDto(particles, duration * 20);
         ParticleHandler.getInstance().addParticleStructure(particleStructure);
-        player.sendMessage(MessageUtility.getColoredMessage("Rendered an image.", true));
+        player.sendMessage(MessageUtility.getColoredMessage(Messages.INFO_RENDER_IMG_FINISHED.replace("%imagename%", imageName), true));
     }
 
     public static void render(@Nonnull CommandSender sender, @Nonnull String imageName, int duration, @Nonnull Location position, @Nonnull Location rotation) {
         List<PixelDto> pixels = ParticleStructureCacheManager.getInstance().loadParticleStructureCache(imageName);
         if (pixels == null || pixels.isEmpty()) {
-            sender.sendMessage(MessageUtility.getColoredMessage("&cWrong image name.", true));
+            sender.sendMessage(MessageUtility.getColoredMessage(Messages.ERROR_IMAGE_NOT_FOUND.replace("%imagename%", imageName), true));
             return;
         }
         int imageSize = ImageManager.getInstance().getImageDataByName(imageName).getSize();
         List<ParticleDto> particles = ParticleStructureCacheManager.getInstance().convertPixelsToParticles(pixels, position, rotation, imageSize);
         ParticleStructureDto particleStructure = new ParticleStructureDto(particles, duration * 20);
         ParticleHandler.getInstance().addParticleStructure(particleStructure);
-        sender.sendMessage(MessageUtility.getColoredMessage("Rendered an image.", true));
+        sender.sendMessage(MessageUtility.getColoredMessage(Messages.INFO_RENDER_IMG_FINISHED.replace("%imagename%", imageName), true));
     }
 }

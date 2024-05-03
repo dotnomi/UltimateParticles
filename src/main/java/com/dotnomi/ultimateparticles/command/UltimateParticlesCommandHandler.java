@@ -109,29 +109,6 @@ public class UltimateParticlesCommandHandler {
             }
         } else {
             sender.sendMessage(MessageUtility.getColoredMessage(Messages.ERROR_NOT_A_PLAYER, true));
-
-            /*if (argLength == 6) {
-                Integer duration = CommandArgsUtility.getArgumentInteger(args[2], null);
-                Location location = CommandArgsUtility.getArgumentLocation(args[3], args[4], args[5], null);
-
-                if (duration == null || location == null) {
-                    sender.sendMessage(MessageUtility.getColoredMessage(Messages.ERROR_WRONG_RENDER_CMD_USEAGE, true));
-                } else {
-                    CommandUtility.render(sender, args[1], duration, location);
-                }
-            } else if (argLength == 9) {
-                Integer duration = CommandArgsUtility.getArgumentInteger(args[2], null);
-                Location location = CommandArgsUtility.getArgumentLocation(args[3], args[4], args[5], null);
-                Location rotation = CommandArgsUtility.getArgumentLocation(args[6], args[7], args[8], null);
-
-                if (duration == null || location == null || rotation == null) {
-                    sender.sendMessage(MessageUtility.getColoredMessage(Messages.ERROR_WRONG_RENDER_CMD_USEAGE, true));
-                } else {
-                    CommandUtility.render(sender, args[1], duration, location, rotation);
-                }
-            } else {
-                sender.sendMessage(MessageUtility.getColoredMessage(Messages.ERROR_WRONG_RENDER_CMD_USEAGE, true));
-            }*/
         }
     }
 }
